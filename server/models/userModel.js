@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
-
+import bcrypt from "bcrypt";
+ 
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -8,7 +9,7 @@ const userSchema = mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unqiue: true
+        unique: true
     },
     password: {
         type: String,
@@ -19,6 +20,13 @@ const userSchema = mongoose.Schema({
     timestamps: true
 })
 
+userSchema.pre('save', async function (next) {
+    if (!this.isModified({'password'})) {
+        next()
+    }
+
+    const salt = await bcrypt.genSalt(10);
+})
 
 const user = mongoose.model('user', userSchema);
 
