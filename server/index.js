@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import userRoutes from "./routes/userRoutes.js";
 import { notFound,errorHandler } from "./middleware/errMiddleware.js";
 import connectDB from "./config/db.js"
+import cookieParser from "cookie-parser";
 
 
 dotenv.config();
@@ -14,16 +15,18 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
+app.use(cookieParser());
+
 const PORT = process.env.PORT; 
 
 app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => {
-    res.send('sever is ready')
+    res.send('server is ready')
 })
 
 app.get("/api/sample", (req, res) => {
-    res.status(200).json({ messsage: 'sample' })
+    res.status(200).json({ message: 'sample' })
 })
 
 // can help us in identifying different errors
