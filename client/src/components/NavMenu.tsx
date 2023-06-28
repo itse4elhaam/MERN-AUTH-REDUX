@@ -54,13 +54,13 @@ const components: { title: string; href: string; description: string }[] = [
 
 export default function NavMenu() {
 	return (
-		<NavigationMenu>
-			<NavigationMenuList>
+		<NavigationMenu className="mx-auto">
+			<NavigationMenuList className="w-screen">
 				<NavigationMenuItem>
 					<NavigationMenuTrigger>
 						Getting started
 					</NavigationMenuTrigger>
-					<NavigationMenuContent>
+					<NavigationMenuContent className="mx-auto">
 						<ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
 							<li className="row-span-3">
 								<NavigationMenuLink asChild>
@@ -102,7 +102,7 @@ export default function NavMenu() {
 				<NavigationMenuItem>
 					<NavigationMenuTrigger>Components</NavigationMenuTrigger>
 					<NavigationMenuContent>
-						<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+						<ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] mx-auto">
 							{components.map((component) => (
 								<ListItem
 									key={component.title}
