@@ -1,20 +1,19 @@
-import React,{useState} from "react";
+import React,{useState, FormEvent} from "react";
+import { PropTypes } from "./login";
 
-export default function SignupUserForm({isLogin, handleCheckboxChange}) {
+export default function SignupUserForm({ isLogin, handleCheckboxChange }: PropTypes) {
+	const [name, setName] = useState("");
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
-		const [name, setName] = useState("");
-		const [email, setEmail] = useState("");
-		const [password, setPassword] = useState("");
-		const [confirmPassword, setConfirmPassword] = useState("");
-
-
-		async function handleFormSubmit(e) {
-			e.preventDefault();
-			console.log(name);
-			console.log(email);
-			console.log(password);
-			console.log(confirmPassword);
-		}
+	async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
+		e.preventDefault();
+		console.log(name);
+		console.log(email);
+		console.log(password);
+		console.log(confirmPassword);
+	}
 
 	return (
 		<>

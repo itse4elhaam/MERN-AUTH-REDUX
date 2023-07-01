@@ -1,22 +1,23 @@
-"use client" ;
+"use client";
 
-import {useState} from "react";
+import { useState } from "react";
+import { ChangeEvent } from "react";
 
-import store from "../store/store"
-import {Provider} from 'react-redux'
+import { Provider } from "react-redux";
 
-import LoginUserForm from "../components/login"
-import SignupUserForm from "../components/signup"
+import LoginUserForm from "../components/login";
+import SignupUserForm from "../components/signup";
+import store from "../store/store";
 
 export default function Home() {
+	const [isLogin, setIsLogin] = useState(true);
 
-  const [isLogin, setIsLogin] = useState(true)
-
-    const handleCheckboxChange = (e) => {
+	const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setIsLogin(e.target.checked);
 	};
 
-  return (
+
+	return (
 		<Provider store={store}>
 			<div className="grid place-content-center mt-20">
 				{isLogin ? (
@@ -32,5 +33,5 @@ export default function Home() {
 				)}
 			</div>
 		</Provider>
-  );
+	);
 }

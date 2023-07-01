@@ -1,12 +1,17 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 
-export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
+export type PropTypes = {
+	isLogin: boolean;
+	handleCheckboxChange: (e: ChangeEvent<HTMLInputElement>) => void;
+};
+
+export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTypes) {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
-	async function handleFormSubmit(e) {
+	async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		console.log(email);
 		console.log(password);
@@ -34,7 +39,7 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
 									className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-500"
 									placeholder="john@doe.com"
 									required
-									// TODO: ADD EMAIL VALIDATION 
+									// TODO: ADD EMAIL VALIDATION
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
 								/>
