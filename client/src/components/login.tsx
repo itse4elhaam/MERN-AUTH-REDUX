@@ -1,8 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+
+	async function handleFormSubmit(e) {
+		e.preventDefault();
+		console.log(email);
+		console.log(password);
+	}
+
 	return (
 		<>
 			<div className="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 my-20">
@@ -11,8 +20,13 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
 						<h1 className="text-2xl font-semibold text-gray-900">
 							Welcome Back
 						</h1>
-						<form className="mt-12" action="" method="POST">
-							<div className="relative">
+						<form
+							className="mt-12"
+							action=""
+							method="POST"
+							onSubmit={handleFormSubmit}
+						>
+							<div className="relative cursor-pointer">
 								<input
 									id="email"
 									name="email"
@@ -20,19 +34,21 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
 									className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-500"
 									placeholder="john@doe.com"
 									required
-									pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+									// TODO: ADD EMAIL VALIDATION 
+									value={email}
+									onChange={(e) => setEmail(e.target.value)}
 								/>
 								<span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
 									Please enter a valid email address
 								</span>
 								<label
-									for="email"
+									htmlFor="email"
 									className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
 								>
-									Email or mobile number
+									Email
 								</label>
 							</div>
-							<div className="mt-10 relative">
+							<div className="mt-10 relative cursor-pointer">
 								<input
 									id="password"
 									type="password"
@@ -40,12 +56,16 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }) {
 									className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-600"
 									placeholder="Password"
 									pattern=".{7,}"
+									value={password}
+									onChange={(e) =>
+										setPassword(e.target.value)
+									}
 								/>
 								<span className="mt-2 hidden text-sm text-red-500 peer-[&:not(:placeholder-shown):not(:focus):invalid]:block">
 									Please enter a valid password
 								</span>
 								<label
-									for="password"
+									htmlFor="password"
 									className="absolute left-0 -top-3.5 text-gray-600 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
 								>
 									Password

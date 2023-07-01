@@ -2,6 +2,9 @@
 
 import {useState} from "react";
 
+import store from "../store/store"
+import {Provider} from 'react-redux'
+
 import LoginUserForm from "../components/login"
 import SignupUserForm from "../components/signup"
 
@@ -14,7 +17,7 @@ export default function Home() {
 	};
 
   return (
-		<>
+		<Provider store={store}>
 			<div className="grid place-content-center mt-20">
 				{isLogin ? (
 					<LoginUserForm
@@ -28,6 +31,6 @@ export default function Home() {
 					/>
 				)}
 			</div>
-		</>
+		</Provider>
   );
 }
