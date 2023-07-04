@@ -23,5 +23,3 @@ const authSlice = createSlice({
 })
 
 export default authSlice; // can be extracted out from the store.js
-
-console.log("authSlice: " + authSlice.reducer);

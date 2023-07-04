@@ -12,6 +12,4 @@ const store = configureStore({
 	devTools: true,
 });
 
-console.log(store)
-
 export default store;

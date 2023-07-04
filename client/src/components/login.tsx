@@ -1,6 +1,12 @@
 "use client";
 
-import React, { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState, useEffect , FormEvent, ChangeEvent } from "react";
+import { useRouter } from 'next/navigation'
+import {useDispatch, useSelector} from "react-redux"
+import { useLoginMutation } from "@/store/slices/userApiSlice";
+import authSlice from "@/store/slices/authSlice";
+
+const setCredentials = authSlice.actions.setCredentials;
 
 export type PropTypes = {
 	isLogin: boolean;
@@ -16,6 +22,11 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTyp
 		console.log(email);
 		console.log(password);
 	}
+
+	const dispatch = useDispatch();
+
+	const [login, {isLoading}] = useLoginMutation();
+
 
 	return (
 		<>
