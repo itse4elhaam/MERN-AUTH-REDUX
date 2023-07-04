@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation'
 import {useDispatch, useSelector} from "react-redux"
 import { useLoginMutation } from "@/store/slices/userApiSlice";
 import authSlice from "@/store/slices/authSlice";
+import { apiSlice } from '../store/slices/apiSlice';
+import Error from "next/error";
 
 const setCredentials = authSlice.actions.setCredentials;
 
@@ -17,16 +19,32 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTyp
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
+	const dispatch = useDispatch();
+	const navigate = useRouter();
+
+	const [login, { isLoading }] = useLoginMutation();
+
+	const { userInfo } = useSelector((state : any) => state.auth) // had to put any as a temporary solution
+
+	useEffect(() => {
+		if (userInfo) {
+			navigate.push("/dashboard");
+		}
+	}, [userInfo, navigate]);
+	
 	async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
 		console.log(email);
 		console.log(password);
+		try {
+			const res = await login({ email, password }).unwrap();
+			dispatch(setCredentials({...res}))
+			navigate.push("/dashboard");
+		} catch (err:any) { // temp fix for the type typescript error
+			console.log(err?.data?.message || err?.error);
+		}
 	}
-
-	const dispatch = useDispatch();
-
-	const [login, {isLoading}] = useLoginMutation();
-
+	
 
 	return (
 		<>
