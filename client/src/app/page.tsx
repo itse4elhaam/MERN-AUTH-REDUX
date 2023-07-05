@@ -5,8 +5,8 @@ import { ChangeEvent } from "react";
 
 import { Provider } from "react-redux";
 
-import LoginUserForm from "../components/login";
-import SignupUserForm from "../components/signup";
+import LoginUserForm from "./components/login";
+import SignupUserForm from "./components/signup";
 import store from "../store/store";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
