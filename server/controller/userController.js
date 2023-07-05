@@ -7,11 +7,15 @@ import generateToken from "../utils/genToken.js"
 // @access public
  
 const authUser = asyncHandler(async (req, res) => {
+
+    let passwordsMatch;
     const {email, password} = req.body;
 
     const foundUser = await user.findOne({email})
 
-    const passwordsMatch = await foundUser.matchPassword(password); // used to check the password of the current user we found from the db
+    if(foundUser){
+        passwordsMatch = await foundUser.matchPassword(password); // used to check the password of the current user we found from the db
+    } 
 
     if(foundUser && passwordsMatch) {
         generateToken(res, foundUser._id); // fetched from utils folder

@@ -1,5 +1,15 @@
 import Image from "next/image";
+import authSlice from "@/store/slices/authSlice";
+import { useDispatch } from "react-redux";
+
 export default function NavBar() {
+	// const logout = authSlice.actions.logout;
+	// const dispatch = useDispatch();
+
+	function logOut(){	
+		console.log("working");
+	}
+
 	return (
 		// still need to rename this file and setup a file convention
 		<header>
@@ -26,16 +36,19 @@ export default function NavBar() {
 						</li>
 					</ul>
 					<div className="transition-all duration-300 ease-in-out register-actions flex gap-12 flex-col lg:flex-row lg:items-center">
-						<button
-							 className="border-2 transition-all duration-500 ease-in-out border-sky-600 px-4 py-4 rounded-md hover:scale-105 cursor-pointer "
-						>Get Started</button>
+						<button className="border-2 transition-all duration-500 ease-in-out border-sky-600 px-4 py-4 rounded-md hover:scale-105 cursor-pointer ">
+							Log Out
+						</button>
+					</div>
+					<div className="transition-all duration-300 ease-in-out register-actions flex gap-12 flex-col lg:flex-row lg:items-center">
+						<button className="border-2 transition-all duration-500 ease-in-out border-sky-600 px-4 py-4 rounded-md hover:scale-105 cursor-pointer ">
+							Register
+						</button>
 					</div>
 				</div>
 			</nav>
 
 			{/* <Button variant="outline">Button</Button> */}
-
 		</header>
-		
 	);
 }

@@ -7,6 +7,7 @@ import { useLoginMutation } from "@/store/slices/userApiSlice";
 import authSlice from "@/store/slices/authSlice";
 import { apiSlice } from '../store/slices/apiSlice';
 import Error from "next/error";
+import { toast } from "react-toastify";
 
 const setCredentials = authSlice.actions.setCredentials;
 
@@ -41,7 +42,7 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTyp
 			dispatch(setCredentials({...res}))
 			navigate.push("/dashboard");
 		} catch (err:any) { // temp fix for the type typescript error
-			console.log(err?.data?.message || err?.error);
+			toast.error(err?.data?.message || err?.error, { hideProgressBar: true, autoClose: 3000, type: 'error' ,position:'top-right' });
 		}
 	}
 	
