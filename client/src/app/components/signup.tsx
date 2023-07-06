@@ -1,22 +1,100 @@
-import React,{useState, FormEvent} from "react";
+import React, { useState, useEffect, FormEvent, ChangeEvent } from "react";
 import { PropTypes } from "./login";
+import { useRegisterMutation } from "@/store/slices/userApiSlice";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import authSlice from "@/store/slices/authSlice";
+import Error from "next/error";
+import { toast } from "react-toastify";
+import Loading from "./loading";
 
-export default function SignupUserForm({ isLogin, handleCheckboxChange }: PropTypes) {
+export default function SignupUserForm({
+	isLogin,
+	handleCheckboxChange,
+}: PropTypes) {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 
+	const setCredentials = authSlice.actions.setCredentials;
+	const dispatch = useDispatch();
+	const navigate = useRouter();
+
+	const { userInfo } = useSelector((state: any) => state.auth); // had to put any as a temporary solution
+
+	const [register, { isLoading }] = useRegisterMutation();
+
+	// shouldn't be registering if already logged in.
+	useEffect(() => {
+		if (userInfo) {
+			navigate.push("/dashboard");
+		}
+	}, [userInfo, navigate]);
+
 	async function handleFormSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		console.log(name);
-		console.log(email);
-		console.log(password);
-		console.log(confirmPassword);
+		if (
+			validData(name, email, password) &&
+			passwordsMatch(password, confirmPassword)
+		) {
+			try {
+				const res = await register({ name, email, password }).unwrap();
+				dispatch(setCredentials({ ...res }));
+				toast.info("Sign up Successful", {
+					hideProgressBar: true,
+					autoClose: 3000,
+					position: "top-right",
+				})
+				navigate.push("/");
+			} catch (err) {
+				toast.error("Something went wrong", {
+					hideProgressBar: true,
+					autoClose: 3000,
+					type: "error",
+					position: "top-right",
+				});
+				console.log(err);
+			}
+		}
 	}
 
-	return (
-		<>
+	function validData(name: string, email: string, password: string) {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		const isEmailValid = emailRegex.test(email);
+
+		if (name.length < 1 || password.length < 5 || !isEmailValid) {
+			toast.error("Invalid email or password!", {
+				hideProgressBar: true,
+				autoClose: 3000,
+				type: "error",
+				position: "top-center",
+			});
+			return false;
+		}
+
+		return true;
+	}
+
+	function passwordsMatch(pass: string, confirmPass: string) {
+		if (pass !== confirmPass) {
+			toast.error("Passwords Do not Match!", {
+				hideProgressBar: true,
+				autoClose: 3000,
+				type: "error",
+				position: "top-center",
+			});
+			return false;
+		}
+
+		return true;
+	}
+
+return (
+	<>
+		{isLoading ? (
+			<Loading />
+		) : (
 			<div className="relative bg-white px-6 pt-10 pb-8 shadow-xl ring-1 ring-gray-900/5 sm:mx-auto sm:max-w-lg sm:rounded-lg sm:px-10 my-10">
 				<div className="mx-auto max-w-md">
 					<div className="px-10 pt-4 pb-8 bg-white rounded-tr-4xl">
@@ -140,6 +218,7 @@ export default function SignupUserForm({ isLogin, handleCheckboxChange }: PropTy
 					</div>
 				</div>
 			</div>
-		</>
-	);
+		)}
+	</>
+);
 }

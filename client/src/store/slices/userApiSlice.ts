@@ -16,6 +16,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 body: data
             })
         }),
+        register: builder.mutation({
+            query: (data) => ({
+                url: `${USERS_URL}`,
+                method: 'POST',
+                body: data
+            })
+        }),
         logout: builder.mutation({
             query: () => ({
                 url: `${USERS_URL}/logout`,
@@ -29,7 +36,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
 // we're creating all this boiler plate code here and from our other files we will just have to dispatch a certain action, its an abstraction that we are creating for ourselves
 
 
-export const { useLoginMutation, useLogoutMutation } = userApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation } = userApiSlice;
 
 // Mutation is for post
 // We would've used query if it was a get req
