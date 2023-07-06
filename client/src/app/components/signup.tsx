@@ -12,6 +12,7 @@ export default function SignupUserForm({
 	isLogin,
 	handleCheckboxChange,
 }: PropTypes) {
+
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -172,7 +173,7 @@ return (
 							<div className="mt-5 relative">
 								<input
 									id="ConfirmPassword"
-									type="ConfirmPassword"
+									type="password"
 									name="ConfirmPassword"
 									className="peer h-10 w-full border-b-2 border-gray-300 text-gray-900 placeholder-transparent focus:outline-none focus:border-sky-600"
 									placeholder="ConfirmPassword"

@@ -15,7 +15,7 @@ export type PropTypes = {
 	isLogin: boolean;
 	handleCheckboxChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
-
+	
 export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTypes) {
 	
 	const [email, setEmail] = useState("");
