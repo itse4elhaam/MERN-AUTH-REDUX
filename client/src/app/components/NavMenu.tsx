@@ -21,6 +21,8 @@ export default function NavBar() {
 	const navigate = useRouter();
 	const { userInfo } = useSelector((state: any) => state.auth); // had to put any as a temporary solution
 
+	
+
 	const [logoutApiCall] = useLogoutMutation();
 
 	async function logOut() {

@@ -22,6 +22,9 @@ export default function SignupUserForm({
 	const dispatch = useDispatch();
 	const navigate = useRouter();
 
+	// just like the login, we get the function register here and call it with the important data 
+	// and then just like the login system you'll set credentials to persist it.
+
 	const { userInfo } = useSelector((state: any) => state.auth); // had to put any as a temporary solution
 
 	const [register, { isLoading }] = useRegisterMutation();

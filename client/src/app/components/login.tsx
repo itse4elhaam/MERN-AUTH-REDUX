@@ -24,6 +24,9 @@ export default function LoginUserForm({ isLogin, handleCheckboxChange }: PropTyp
 	const dispatch = useDispatch();
 	const navigate = useRouter();
 
+	// after getting the function from the mutation I call that function with the important info(email and password in this case)
+	// then I have set the credentials to persist the login
+
 	const [login, { isLoading }] = useLoginMutation();
 
 	const { userInfo } = useSelector((state : any) => state.auth) // had to put any as a temporary solution

@@ -33,6 +33,7 @@ const initialState: initStateType = {
 		: null,
 };
 
+// these are the reducers that are used in logging in and out.
 const authSlice = createSlice({
 	name: "auth",
 	initialState,
